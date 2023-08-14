@@ -6,6 +6,6 @@
   "domain": "ccu",
   "iot_class": "cloud_polling",
   "name": "Ccu",
-  "requirements": ["requests"],
+  "requirements": ["aiohttp"],
   "version": "1.0.0"
 }

@@ -30,3 +30,7 @@ class CcuSensor(Entity):
             json_data = await fetch(session, url)
             json_object = json.loads(json_data)
             self._state = json_object["Partitions"][0]
+
+async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
+    """Set up the sensor platform."""
+    async_add_entities([CcuSensor()])

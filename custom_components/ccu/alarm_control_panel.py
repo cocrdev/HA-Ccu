@@ -44,7 +44,8 @@ class CcuAlarmControlPanel(AlarmControlPanelEntity):
     
     def alarm_disarm(self, code=None):
         """Handle the alarm being disarmed."""
-        self.hass.async_add_executor_job(self.async_send_disarm_request)
+        self.hass.async_create_task(self.async_send_disarm_request())
+
 
 
 

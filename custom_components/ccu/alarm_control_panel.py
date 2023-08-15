@@ -30,6 +30,24 @@ class CcuAlarmControlPanel(AlarmControlPanelEntity):
             json_data = await fetch(session, url)
             json_object = json.loads(json_data)
             self._state = json_object["Partitions"][0]
+    
+    async def async_send_disarm_request(self):
+        url = "http://192.168.25.103/state/set/1/partition"
+        payload = {"state": "Disarm"}
+
+        async with aiohttp.ClientSession() as session:
+            async with session.post(url, json=payload) as response:
+                if response.status == 200:
+                    return await response.json()
+                else:
+                    return None
+    
+    async def async_disarmed(self):
+        """Handle the alarm being disarmed."""
+        response = await self.async_send_disarm_request()
+       # Additional code if needed
+
+
 
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
     """Set up the alarm control panel platform."""

@@ -43,10 +43,9 @@ class CcuAlarmControlPanel(AlarmControlPanelEntity):
                 else:
                     return None
 
-    def alarm_disarm(self, code=None):
-        """Handle the alarm being disarmed."""
-        loop = asyncio.get_running_loop()
-        loop.run_in_executor(None, self.hass.async_create_task, self.async_send_disarm_request())
+    async def async_alarm_disarm(self, code=None) -> None:
+        """Send disarm command."""
+        await self.async_send_disarm_request()
 
 
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):

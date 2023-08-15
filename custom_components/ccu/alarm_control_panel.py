@@ -1,6 +1,7 @@
 import aiohttp
 from homeassistant.components.alarm_control_panel import AlarmControlPanelEntity
 import json
+import asyncio
 
 async def fetch(session, url):
     async with session.get(url) as response:
@@ -41,13 +42,11 @@ class CcuAlarmControlPanel(AlarmControlPanelEntity):
                     return await response.json()
                 else:
                     return None
-    
+
     def alarm_disarm(self, code=None):
         """Handle the alarm being disarmed."""
-        self.hass.async_create_task(self.async_send_disarm_request())
-
-
-
+        loop = asyncio.get_event_loop()
+        loop.run_until_complete(self.async_send_disarm_request())
 
 
 

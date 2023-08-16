@@ -63,7 +63,7 @@ class CcuWeatherConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         schema = vol.Schema(
             {
                 vol.Required(CONF_API_KEY): str,
-                vol.Optional(CONF_NAME, default=DEFAULT_NAME): str,
+                vol.Optional(CONF_NAME, default="Ccu"): str,
             }
         )
 

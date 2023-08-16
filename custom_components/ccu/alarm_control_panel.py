@@ -1,5 +1,7 @@
+# alarm_control_panel.py
 import aiohttp
 from homeassistant.components.alarm_control_panel import AlarmControlPanelEntity
+from homeassistant.const import CONF_HOST
 import json
 
 
@@ -10,8 +12,9 @@ async def fetch(session, url):
 class CcuAlarmControlPanel(AlarmControlPanelEntity):
     """Representation of an alarm control panel."""
 
-    def __init__(self):
+    def __init__(self, host):
         self._state = None
+        self._host = host
 
     @property
     def name(self):
@@ -33,7 +36,7 @@ class CcuAlarmControlPanel(AlarmControlPanelEntity):
             self._state = json_object["Partitions"][0]
     
     async def async_send_disarm_request(self):
-        url = "http://192.168.25.103/state/set/1/partition"
+        url = f"http://{self._host}/state/set/1/partition"
         payload = {"state": "Disarm"}
 
         async with aiohttp.ClientSession() as session:
@@ -50,4 +53,5 @@ class CcuAlarmControlPanel(AlarmControlPanelEntity):
 
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
     """Set up the alarm control panel platform."""
-    async_add_entities([CcuAlarmControlPanel()])
+    async_add_entities([CcuAlarmControlPanel(discovery_info[CONF_HOST])])
+

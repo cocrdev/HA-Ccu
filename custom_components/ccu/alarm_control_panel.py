@@ -1,7 +1,7 @@
 import aiohttp
 from homeassistant.components.alarm_control_panel import AlarmControlPanelEntity
 import json
-import asyncio
+
 
 async def fetch(session, url):
     async with session.get(url) as response:

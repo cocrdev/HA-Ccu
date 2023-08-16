@@ -1,5 +1,5 @@
 from homeassistant import config_entries
-from const import DOMAIN
+from .const import DOMAIN
 
 class CcuConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     """Handle a config flow for CCU."""

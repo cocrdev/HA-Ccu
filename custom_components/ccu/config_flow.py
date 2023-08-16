@@ -25,4 +25,3 @@ class CcuConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             ),
             errors=errors,
         )
-

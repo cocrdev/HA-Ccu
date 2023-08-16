@@ -20,7 +20,7 @@ class CcuAlarmControlPanel(AlarmControlPanelEntity):
     def name(self):
         """Return the name of the alarm control panel."""
         return 'My Alarm Control Panel'
-        
+
     @property
     def state(self):
         """Return the state of the alarm control panel."""
@@ -34,7 +34,7 @@ class CcuAlarmControlPanel(AlarmControlPanelEntity):
             json_data = await fetch(session, url)
             json_object = json.loads(json_data)
             self._state = json_object["Partitions"][0]
-    
+
     async def async_send_disarm_request(self):
         url = f"http://{self._host}/state/set/1/partition"
         payload = {"state": "Disarm"}

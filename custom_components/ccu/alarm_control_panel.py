@@ -27,7 +27,7 @@ class CcuAlarmControlPanel(AlarmControlPanelEntity):
         return self._state
 
     async def async_update(self):
-        url = "http://192.168.25.103/state/get/1"  # replace {id} with actual id
+        url = f"http://{self._host}/state/get/1"  # replace {id} with actual id
         
         timeout = aiohttp.ClientTimeout(total=10)  # defining timeout to 10 seconds
         async with aiohttp.ClientSession(timeout=timeout) as session:
@@ -54,4 +54,3 @@ class CcuAlarmControlPanel(AlarmControlPanelEntity):
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
     """Set up the alarm control panel platform."""
     async_add_entities([CcuAlarmControlPanel(discovery_info[CONF_HOST])])
-

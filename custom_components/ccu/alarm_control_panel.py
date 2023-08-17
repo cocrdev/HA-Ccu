@@ -19,7 +19,7 @@ class CcuAlarmControlPanel(AlarmControlPanelEntity):
     @property
     def name(self):
         """Return the name of the alarm control panel."""
-        return 'My Alarm Control Panel'
+        return 'Ccu'
 
     @property
     def state(self):

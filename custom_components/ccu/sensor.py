@@ -17,7 +17,7 @@ class CcuSensor(Entity):
     @property
     def name(self):
         """Return the name of the sensor."""
-        return 'My Sensor'
+        return 'Ccu'
         
     @property
     def state(self):

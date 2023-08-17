@@ -5,10 +5,10 @@
             "user": {
                 "data": {
                     "host": "IP address"
-                }
-            },
+                },
             "description": "Enter an IP address of CCU Dashboard",
             "title": "Dashboard setting"
+            }
         }
     }
 }

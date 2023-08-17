@@ -18,7 +18,7 @@ class CcuSensor(Entity):
     def name(self):
         """Return the name of the sensor."""
         return 'Ccu'
-        
+
     @property
     def state(self):
         """Return the state of the sensor."""
@@ -26,7 +26,7 @@ class CcuSensor(Entity):
 
     async def async_update(self):
         url = f"http://{self._host}/state/get/1"  # replace {id} with actual id
-        
+
         timeout = aiohttp.ClientTimeout(total=10)  # defining timeout to 10 seconds
         async with aiohttp.ClientSession(timeout=timeout) as session:
             json_data = await fetch(session, url)

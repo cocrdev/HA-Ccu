@@ -1,3 +1,5 @@
+# sensor.py
+
 import aiohttp
 from homeassistant.helpers.entity import Entity
 from homeassistant.const import CONF_HOST

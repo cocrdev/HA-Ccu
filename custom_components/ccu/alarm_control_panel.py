@@ -53,4 +53,4 @@ class CcuAlarmControlPanel(AlarmControlPanelEntity):
 
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
     """Set up the alarm control panel platform."""
-    async_add_entities([CcuAlarmControlPanel(discovery_info[CONF_HOST])])
+    async_add_entities([CcuAlarmControlPanel(CONF_HOST)])

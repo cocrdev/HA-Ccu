@@ -1,0 +1,20 @@
+{
+    "title": "CCU",
+    "step": {
+      "user": {
+        "title": "Dashboard setting",
+        "description": "Enter an IP address of CCU Dashboard",
+        "data": {
+          "host": "IP address"
+        }
+      }
+    },
+    "error": {
+      "connect": "Failed to connect",
+      "unknown": "Unexpected error"
+    },
+    "abort": {
+      "already_configured": "Device is already configured"
+    }
+  }
+  

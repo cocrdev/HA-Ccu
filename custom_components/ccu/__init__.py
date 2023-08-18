@@ -22,6 +22,7 @@ async def async_setup_entry(hass: core.HomeAssistant, entry: config_entries.Conf
         update_interval=timedelta(seconds=30),
     )
     await coordinator.async_config_entry_first_refresh()
+    _LOGGER.warning(coordinator.data)
     hass.data[DOMAIN] : Dict[str, str] = {
         "coordinator": coordinator,
     }

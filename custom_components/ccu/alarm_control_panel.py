@@ -9,8 +9,11 @@ from homeassistant.helpers.update_coordinator import (
 from homeassistant.const import CONF_HOST
 from homeassistant.config_entries import ConfigEntry
 import json
+import logging
 from .const import DOMAIN
 
+
+_LOGGER = logging.getLogger(__name__)
 
 async def fetch(session, url):
     async with session.get(url) as response:
@@ -35,6 +38,7 @@ class CcuAlarmControlPanel(AlarmControlPanelEntity, CoordinatorEntity):
         return self._state
 
     async def async_update(self):
+        _LOGGER.warning(self.coordinator.data)
         self._state = self.coordinator.data['state']
 
     async def async_send_disarm_request(self):

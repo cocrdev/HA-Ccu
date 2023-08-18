@@ -20,9 +20,9 @@ class CcuAlarmControlPanel(AlarmControlPanelEntity, CoordinatorEntity):
     """Representation of an alarm control panel."""
 
     def __init__(self, host: str, coordinator: DataUpdateCoordinator):
+        super().__init__(coordinator)
         self._state : str = None
         self._host : str = host
-        self.coordinator: DataUpdateCoordinator = coordinator
 
     @property
     def name(self):

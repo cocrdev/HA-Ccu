@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import DictType
+from typing import TypedDict
 
-class State(DictType):
+class State(TypedDict):
     state: str

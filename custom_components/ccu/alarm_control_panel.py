@@ -2,6 +2,7 @@
 import aiohttp
 from homeassistant.components.alarm_control_panel import AlarmControlPanelEntity
 from homeassistant.const import CONF_HOST
+from homeassistant.config_entries import ConfigEntry
 import json
 
 
@@ -52,5 +53,8 @@ class CcuAlarmControlPanel(AlarmControlPanelEntity):
 
 
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
-    """Set up the alarm control panel platform."""
-    async_add_entities([CcuAlarmControlPanel(discovery_info[CONF_HOST])])
+    pass
+
+async def async_setup_entry(hass, config_entry: ConfigEntry, async_add_devices):
+    """Set up the alarm control panel from a config entry."""
+    async_add_devices([CcuAlarmControlPanel(config_entry.data[CONF_HOST])])

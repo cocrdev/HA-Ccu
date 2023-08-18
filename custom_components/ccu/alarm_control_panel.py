@@ -8,6 +8,7 @@ from homeassistant.helpers.update_coordinator import (
 )
 from homeassistant.const import CONF_HOST
 from homeassistant.config_entries import ConfigEntry
+from homeassistant.core import callback
 import json
 import logging
 from .const import DOMAIN
@@ -36,6 +37,12 @@ class CcuAlarmControlPanel(AlarmControlPanelEntity, CoordinatorEntity):
     def state(self):
         """Return the state of the alarm control panel."""
         return self._state
+    
+    @callback
+    def _handle_coordinator_update(self) -> None:
+        """Handle updated data from the coordinator."""
+        self._state = self.coordinator.data['state']
+        self.async_write_ha_state()
 
     async def async_update(self):
         _LOGGER.warning(self.coordinator.data)
@@ -55,6 +62,7 @@ class CcuAlarmControlPanel(AlarmControlPanelEntity, CoordinatorEntity):
     async def async_alarm_disarm(self, code=None) -> None:
         """Send disarm command."""
         await self.async_send_disarm_request()
+        await self.coordinator.async_request_refresh()
 
 
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):

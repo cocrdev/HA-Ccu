@@ -1,6 +1,11 @@
 # alarm_control_panel.py
 import aiohttp
 from homeassistant.components.alarm_control_panel import AlarmControlPanelEntity
+from homeassistant.helpers.update_coordinator import (
+    CoordinatorEntity,
+    DataUpdateCoordinator,
+    UpdateFailed,
+)
 from homeassistant.const import CONF_HOST
 from homeassistant.config_entries import ConfigEntry
 import json
@@ -10,17 +15,18 @@ async def fetch(session, url):
     async with session.get(url) as response:
         return await response.text()
 
-class CcuAlarmControlPanel(AlarmControlPanelEntity):
+class CcuAlarmControlPanel(AlarmControlPanelEntity, CoordinatorEntity):
     """Representation of an alarm control panel."""
 
-    def __init__(self, host):
-        self._state = None
-        self._host = host
+    def __init__(self, host: str, coordinator: DataUpdateCoordinator):
+        self._state : str = None
+        self._host : str = host
+        self._coordinator: DataUpdateCoordinator = coordinator
 
     @property
     def name(self):
         """Return the name of the alarm control panel."""
-        return 'Ccu'
+        return 'Ccu state'
 
     @property
     def state(self):
@@ -28,13 +34,7 @@ class CcuAlarmControlPanel(AlarmControlPanelEntity):
         return self._state
 
     async def async_update(self):
-        url = f"http://{self._host}/state/get/1"  # replace {id} with actual id
-        
-        timeout = aiohttp.ClientTimeout(total=10)  # defining timeout to 10 seconds
-        async with aiohttp.ClientSession(timeout=timeout) as session:
-            json_data = await fetch(session, url)
-            json_object = json.loads(json_data)
-            self._state = json_object["Partitions"][0]
+        self._state = self._coordinator.data['state']
 
     async def async_send_disarm_request(self):
         url = f"http://{self._host}/state/set/1/partition"
@@ -56,5 +56,7 @@ async def async_setup_platform(hass, config, async_add_entities, discovery_info=
     pass
 
 async def async_setup_entry(hass, config_entry: ConfigEntry, async_add_devices):
+    host : str = config_entry.data[CONF_HOST]
+    coordinator : DataUpdateCoordinator = hass.data[DOMAIN]["coordinator"]
     """Set up the alarm control panel from a config entry."""
-    async_add_devices([CcuAlarmControlPanel(config_entry.data[CONF_HOST])])
+    async_add_devices([CcuAlarmControlPanel(host, coordinator)])

@@ -1,2 +1,2 @@
 # const.py
-DOMAIN = "ccu"
+DOMAIN : str = "ccu"

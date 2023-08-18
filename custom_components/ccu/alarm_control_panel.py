@@ -45,7 +45,6 @@ class CcuAlarmControlPanel(AlarmControlPanelEntity, CoordinatorEntity):
         self.async_write_ha_state()
 
     async def async_update(self):
-        _LOGGER.warning(self.coordinator.data)
         self._state = self.coordinator.data['state']
 
     async def async_send_disarm_request(self):

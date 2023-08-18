@@ -9,5 +9,9 @@ async def async_setup(hass: core.HomeAssistant, config: dict) -> bool:
 
 async def async_setup_entry(hass: core.HomeAssistant, entry: config_entries.ConfigEntry):
     """Set up CCU from a config entry."""
-    hass.helpers.discovery.load_platform('alarm_control_panel', 'ccu', entry.data, {})
+    hass.async_create_task(
+        hass.config_entries.async_forward_entry_setup(
+            entry, "alarm_control_panel"
+        )
+    )
     return True

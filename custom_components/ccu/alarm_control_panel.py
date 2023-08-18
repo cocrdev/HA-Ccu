@@ -22,7 +22,7 @@ class CcuAlarmControlPanel(AlarmControlPanelEntity, CoordinatorEntity):
     def __init__(self, host: str, coordinator: DataUpdateCoordinator):
         self._state : str = None
         self._host : str = host
-        self._coordinator: DataUpdateCoordinator = coordinator
+        self.coordinator: DataUpdateCoordinator = coordinator
 
     @property
     def name(self):
@@ -35,7 +35,7 @@ class CcuAlarmControlPanel(AlarmControlPanelEntity, CoordinatorEntity):
         return self._state
 
     async def async_update(self):
-        self._state = self._coordinator.data['state']
+        self._state = self.coordinator.data['state']
 
     async def async_send_disarm_request(self):
         url = f"http://{self._host}/state/set/1/partition"

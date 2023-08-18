@@ -9,6 +9,7 @@ from homeassistant.helpers.update_coordinator import (
 from homeassistant.const import CONF_HOST
 from homeassistant.config_entries import ConfigEntry
 import json
+from .const import DOMAIN
 
 
 async def fetch(session, url):

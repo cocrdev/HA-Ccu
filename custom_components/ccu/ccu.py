@@ -1,3 +1,5 @@
+# ccu.py
+
 from abc import ABC, abstractmethod
 import aiohttp
 import json
@@ -31,7 +33,7 @@ class Ccu:
         json_object : Dict = dict()
         state : State = dict()
 
-        timeout : ClientTimeout = aiohttp.ClientTimeout(total=10)  # defining timeout to 10 seconds
+        timeout : aiohttp.ClientTimeout = aiohttp.ClientTimeout(total=10)  # defining timeout to 10 seconds
         async with aiohttp.ClientSession(timeout=timeout) as session:
             response_data : str = await self._fetch(session, url)
             json_object = json.loads(response_data)

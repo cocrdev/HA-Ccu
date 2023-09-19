@@ -7,5 +7,6 @@
   "iot_class": "cloud_polling",
   "name": "Ccu",
   "requirements": ["aiohttp"],
+  "integration_type": "hub",
   "version": "1.0.0"
 }

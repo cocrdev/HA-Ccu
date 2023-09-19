@@ -65,7 +65,10 @@ class CcuAlarmControlPanel(AlarmControlPanelEntity, CoordinatorEntity):
 
 
 async def async_setup_platform(hass, config, async_add_entities, discovery_info=None):
-    pass
+    host : str = config.data[CONF_HOST]
+    coordinator : DataUpdateCoordinator = hass.data[DOMAIN]["coordinator"]
+    """Set up the alarm control panel from a config entry."""
+    async_add_entities([CcuAlarmControlPanel(host, coordinator)])
 
 async def async_setup_entry(hass, config_entry: ConfigEntry, async_add_devices):
     host : str = config_entry.data[CONF_HOST]
